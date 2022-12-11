@@ -1,0 +1,647 @@
+"""All input for the create `Migration` mutation."""
+input CreateMigrationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Migration` to be created by this mutation."""
+  migration: MigrationInput!
+}
+
+"""The output of our create `Migration` mutation."""
+type CreateMigrationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Migration` that was created by this mutation."""
+  migration: Migration
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Migration`. May be used by Relay 1."""
+  migrationEdge(
+    """The method to use when ordering `Migration`."""
+    orderBy: [MigrationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MigrationsEdge
+}
+
+"""All input for the create `People` mutation."""
+input CreatePeopleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `People` to be created by this mutation."""
+  people: PeopleInput!
+}
+
+"""The output of our create `People` mutation."""
+type CreatePeoplePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `People` that was created by this mutation."""
+  people: People
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `People`. May be used by Relay 1."""
+  peopleEdge(
+    """The method to use when ordering `People`."""
+    orderBy: [PeopleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PeopleEdge
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""All input for the `deleteMigrationById` mutation."""
+input DeleteMigrationByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
+}
+
+"""All input for the `deleteMigration` mutation."""
+input DeleteMigrationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Migration` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Migration` mutation."""
+type DeleteMigrationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Migration` that was deleted by this mutation."""
+  migration: Migration
+  deletedMigrationId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Migration`. May be used by Relay 1."""
+  migrationEdge(
+    """The method to use when ordering `Migration`."""
+    orderBy: [MigrationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MigrationsEdge
+}
+
+"""All input for the `deletePeopleByName` mutation."""
+input DeletePeopleByNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  name: String!
+}
+
+"""All input for the `deletePeople` mutation."""
+input DeletePeopleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `People` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `People` mutation."""
+type DeletePeoplePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `People` that was deleted by this mutation."""
+  people: People
+  deletedPeopleId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `People`. May be used by Relay 1."""
+  peopleEdge(
+    """The method to use when ordering `People`."""
+    orderBy: [PeopleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PeopleEdge
+}
+
+type Migration implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  name: String!
+  runOn: Datetime!
+}
+
+"""
+A condition to be used against `Migration` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input MigrationCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `runOn` field."""
+  runOn: Datetime
+}
+
+"""An input for mutations affecting `Migration`"""
+input MigrationInput {
+  id: Int
+  name: String!
+  runOn: Datetime!
+}
+
+"""
+Represents an update to a `Migration`. Fields that are set will be updated.
+"""
+input MigrationPatch {
+  id: Int
+  name: String
+  runOn: Datetime
+}
+
+"""A connection to a list of `Migration` values."""
+type MigrationsConnection {
+  """A list of `Migration` objects."""
+  nodes: [Migration]!
+
+  """
+  A list of edges which contains the `Migration` and cursor to aid in pagination.
+  """
+  edges: [MigrationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Migration` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Migration` edge in the connection."""
+type MigrationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Migration` at the end of the edge."""
+  node: Migration
+}
+
+"""Methods to use when ordering `Migration`."""
+enum MigrationsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  RUN_ON_ASC
+  RUN_ON_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+The root mutation type which contains root level fields which mutate data.
+"""
+type Mutation {
+  """Creates a single `Migration`."""
+  createMigration(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateMigrationInput!
+  ): CreateMigrationPayload
+
+  """Creates a single `People`."""
+  createPeople(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreatePeopleInput!
+  ): CreatePeoplePayload
+
+  """Updates a single `Migration` using its globally unique id and a patch."""
+  updateMigration(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateMigrationInput!
+  ): UpdateMigrationPayload
+
+  """Updates a single `Migration` using a unique key and a patch."""
+  updateMigrationById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateMigrationByIdInput!
+  ): UpdateMigrationPayload
+
+  """Updates a single `People` using its globally unique id and a patch."""
+  updatePeople(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePeopleInput!
+  ): UpdatePeoplePayload
+
+  """Updates a single `People` using a unique key and a patch."""
+  updatePeopleByName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePeopleByNameInput!
+  ): UpdatePeoplePayload
+
+  """Deletes a single `Migration` using its globally unique id."""
+  deleteMigration(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteMigrationInput!
+  ): DeleteMigrationPayload
+
+  """Deletes a single `Migration` using a unique key."""
+  deleteMigrationById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteMigrationByIdInput!
+  ): DeleteMigrationPayload
+
+  """Deletes a single `People` using its globally unique id."""
+  deletePeople(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePeopleInput!
+  ): DeletePeoplePayload
+
+  """Deletes a single `People` using a unique key."""
+  deletePeopleByName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePeopleByNameInput!
+  ): DeletePeoplePayload
+}
+
+"""An object with a globally unique `ID`."""
+interface Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+type People implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  name: String!
+  address: String
+  gender: String
+}
+
+"""
+A condition to be used against `People` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input PeopleCondition {
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `address` field."""
+  address: String
+
+  """Checks for equality with the object’s `gender` field."""
+  gender: String
+}
+
+"""A connection to a list of `People` values."""
+type PeopleConnection {
+  """A list of `People` objects."""
+  nodes: [People]!
+
+  """
+  A list of edges which contains the `People` and cursor to aid in pagination.
+  """
+  edges: [PeopleEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `People` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `People` edge in the connection."""
+type PeopleEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `People` at the end of the edge."""
+  node: People
+}
+
+"""An input for mutations affecting `People`"""
+input PeopleInput {
+  name: String!
+  address: String
+  gender: String
+}
+
+"""Methods to use when ordering `People`."""
+enum PeopleOrderBy {
+  NATURAL
+  NAME_ASC
+  NAME_DESC
+  ADDRESS_ASC
+  ADDRESS_DESC
+  GENDER_ASC
+  GENDER_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+Represents an update to a `People`. Fields that are set will be updated.
+"""
+input PeoplePatch {
+  name: String
+  address: String
+  gender: String
+}
+
+"""The root query type which gives access points into the data universe."""
+type Query implements Node {
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
+
+  """Reads and enables pagination through a set of `Migration`."""
+  allMigrations(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Migration`."""
+    orderBy: [MigrationsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MigrationCondition
+  ): MigrationsConnection
+
+  """Reads and enables pagination through a set of `People`."""
+  allPeople(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `People`."""
+    orderBy: [PeopleOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PeopleCondition
+  ): PeopleConnection
+  migrationById(id: Int!): Migration
+  peopleByName(name: String!): People
+
+  """Reads a single `Migration` using its globally unique `ID`."""
+  migration(
+    """The globally unique `ID` to be used in selecting a single `Migration`."""
+    nodeId: ID!
+  ): Migration
+
+  """Reads a single `People` using its globally unique `ID`."""
+  people(
+    """The globally unique `ID` to be used in selecting a single `People`."""
+    nodeId: ID!
+  ): People
+}
+
+"""All input for the `updateMigrationById` mutation."""
+input UpdateMigrationByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Migration` being updated.
+  """
+  migrationPatch: MigrationPatch!
+  id: Int!
+}
+
+"""All input for the `updateMigration` mutation."""
+input UpdateMigrationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Migration` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Migration` being updated.
+  """
+  migrationPatch: MigrationPatch!
+}
+
+"""The output of our update `Migration` mutation."""
+type UpdateMigrationPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Migration` that was updated by this mutation."""
+  migration: Migration
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Migration`. May be used by Relay 1."""
+  migrationEdge(
+    """The method to use when ordering `Migration`."""
+    orderBy: [MigrationsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MigrationsEdge
+}
+
+"""All input for the `updatePeopleByName` mutation."""
+input UpdatePeopleByNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `People` being updated.
+  """
+  peoplePatch: PeoplePatch!
+  name: String!
+}
+
+"""All input for the `updatePeople` mutation."""
+input UpdatePeopleInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `People` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `People` being updated.
+  """
+  peoplePatch: PeoplePatch!
+}
+
+"""The output of our update `People` mutation."""
+type UpdatePeoplePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `People` that was updated by this mutation."""
+  people: People
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `People`. May be used by Relay 1."""
+  peopleEdge(
+    """The method to use when ordering `People`."""
+    orderBy: [PeopleOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PeopleEdge
+}
